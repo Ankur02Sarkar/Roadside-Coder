@@ -1,0 +1,2 @@
+- use e.stopPropagation() // with the ()
+- use levels to distinguish folders and for margin left
