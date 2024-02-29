@@ -47,7 +47,6 @@ const Folder = ({ folderItem, level = 0 }) => {
     return 'id-' + new Date().getTime();
   }
 
-
   return (
     <div onClick={handleClick}>
       <div style={{ cursor: "pointer", display: "flex", gap: "1rem" }}>
