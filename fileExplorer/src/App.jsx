@@ -4,6 +4,7 @@ import explorer from "./data";
 
 const Folder = ({ folderItem, level = 0 }) => {
   const [show, setShow] = useState(false);
+  const [val, setVal] = useState("")
   const [showForm, setShowForm] = useState({
     visible: false,
     isFolder: null
@@ -28,6 +29,25 @@ const Folder = ({ folderItem, level = 0 }) => {
     });
   };
 
+  const handleSave = (e, isFolder) => {
+    setShow(false)
+    e.stopPropagation();
+    const id = generateUniqueId()
+    const newItem = {
+      "id": id,
+      "name": val,
+      "isFolder": isFolder,
+      "items": []
+    };
+    folderItem.items.push(newItem);
+    setShow(true)
+  }
+
+  function generateUniqueId() {
+    return 'id-' + new Date().getTime();
+  }
+
+
   return (
     <div onClick={handleClick}>
       <div style={{ cursor: "pointer", display: "flex", gap: "1rem" }}>
@@ -40,8 +60,8 @@ const Folder = ({ folderItem, level = 0 }) => {
       {showForm.visible &&
         <div>
           {showForm.isFolder ? "📁" : "📄"}
-          <input type="text" placeholder={showForm.isFolder ? "Enter Folder Name" : "Enter File Name"} />
-          <button>Save</button>
+          <input type="text" onChange={(e) => setVal(e.target.value)} placeholder={showForm.isFolder ? "Enter Folder Name" : "Enter File Name"} />
+          <button onClick={(e) => handleSave(e, showForm.isFolder)}>Save</button>
         </div>
       }
       {show && (
